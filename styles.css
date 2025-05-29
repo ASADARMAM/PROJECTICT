@@ -140,7 +140,6 @@ body {
 }
 
 .login-btn {
-    border: 2px solid var(--primary-color);
     color: var(--secondary-color) !important;
     background-color: transparent;
 }
