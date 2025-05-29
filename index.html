@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBADAT E-LEARNING - HEC Recognized Software Engineering Courses</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="IBADAT E-LEARNING Logo">
+                <span>IBADAT E-LEARNING</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html#courses"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                <li><a href="index.html#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                <!-- Logged Out State -->
+                <li class="nav-item logged-out-nav">
+                    <a href="#" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </li>
+                <li class="nav-item logged-out-nav">
+                    <a href="#" class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a>
+                </li>
+                <!-- Logged In State -->
+                <li class="nav-item logged-in-nav" style="display: none;">
+                     <span class="welcome-message">Welcome,</span>
+                </li>
+                 <li class="nav-item logged-in-nav user-menu-container" style="display: none;">
+                     <div class="user-info-trigger">
+                         <i class="fas fa-user-circle"></i> <!-- Basic profile picture icon -->
+                         <span id="loggedInUsername">User</span> <!-- Placeholder for username -->
+                         <i class="fas fa-chevron-down dropdown-arrow"></i> <!-- Dropdown arrow -->
+                     </div>
+                     <div class="dropdown-menu">
+                         <ul>
+                             <li><a href="#" class="dropdown-link">My Courses</a></li>
+                             <li><a href="#" class="dropdown-link" id="profileLink">My Profile</a></li>
+                             <li><a href="#" class="dropdown-link">Settings</a></li>
+                         </ul>
+                     </div>
+                </li>
+                <li class="nav-item logged-in-nav" style="display: none;">
+                    <a href="#" id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Custom Notification -->
+    <div id="customNotification" class="notification">
+        <p id="notificationMessage"></p>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Master Software Engineering with HEC Recognized Courses</h1>
+            <p>Learn from industry experts and get certified with our comprehensive software engineering program</p>
+            <a href="#courses" class="cta-button">Explore Courses</a>
+        </div>
+    </section>
+
+    <!-- Featured Courses Section -->
+    <section id="courses" class="featured-courses">
+        <h2>Featured Courses</h2>
+        <div class="course-grid">
+            <div class="course-card animate-on-scroll">
+                <img src="images/course1.png" alt="Web Development">
+                <div class="course-content">
+                    <h3>Web Development Fundamentals</h3>
+                    <p>Learn HTML, CSS, and JavaScript from scratch</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 12 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 1.2k Students</span>
+                    </div>
+                    <a href="#" class="enroll-btn" data-course-id="web-development">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/course2.jpg" alt="Mobile App Development">
+                <div class="course-content">
+                    <h3>Mobile App Development</h3>
+                    <p>Master React Native and Flutter for cross-platform apps</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 16 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 950 Students</span>
+                    </div>
+                    <a href="#" class="enroll-btn" data-course-id="mobile-development">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/course3.jpg" alt="Data Science">
+                <div class="course-content">
+                    <h3>Data Science & Machine Learning</h3>
+                    <p>Python, TensorFlow, and advanced analytics</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 20 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 1.5k Students</span>
+                    </div>
+                    <a href="#" class="enroll-btn" data-course-id="data-science">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/course4.png" alt="Cloud Computing">
+                <div class="course-content">
+                    <h3>Cloud Computing & DevOps</h3>
+                    <p>AWS, Azure, and CI/CD pipeline development</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 14 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 800 Students</span>
+                    </div>
+                    <a href="#" class="enroll-btn" data-course-id="cloud-computing">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <h2>Why Choose IBADAT E-LEARNING?</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <i class="fas fa-certificate"></i>
+                <h3>HEC Recognized</h3>
+                <p>All our courses are officially recognized by HEC</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Industry Experts</h3>
+                <p>Learn from experienced software engineers</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-users"></i>
+                <h3>Community Support</h3>
+                <p>Join our active learning community</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="modal-email">Email/Username</label>
+                    <input type="text" id="modal-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-password">Password</label>
+                    <input type="password" id="modal-password" name="password" required>
+                </div>
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="modal-name">Full Name</label>
+                    <input type="text" id="modal-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-signup-email">Email Address</label>
+                    <input type="email" id="modal-signup-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-signup-password">Password</label>
+                    <input type="password" id="modal-signup-password" name="password" required>
+                </div>
+                 <div class="form-group">
+                    <label for="modal-confirm-password">Confirm Password</label>
+                    <input type="password" id="modal-confirm-password" name="confirm-password" required>
+                </div>
+                <button type="submit" class="auth-button">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <h2>About Us</h2>
+            <div class="about-text">
+                <p>Welcome to IBADAT E-LEARNING, where innovation meets education. Our journey began with a vision to transform the landscape of software engineering education in Pakistan. We believe that quality education should be accessible to everyone, and our platform is designed to make this vision a reality.</p>
+                
+                <p>Our team of dedicated educators and industry professionals has worked tirelessly to create a learning environment that not only imparts technical knowledge but also nurtures creativity and problem-solving skills. We understand the challenges that students face in their learning journey, and we're here to support them every step of the way.</p>
+                
+                <p>At IBADAT E-LEARNING, we're not just teaching code; we're building the next generation of software engineers who will shape the future of technology. Our courses are carefully crafted to provide both theoretical knowledge and practical experience, ensuring that our students are well-prepared for the challenges of the industry.</p>
+                
+                <p>We take pride in our HEC recognition, which validates our commitment to maintaining the highest standards of education. Our platform continues to evolve and improve, driven by feedback from our students and the ever-changing landscape of technology.</p>
+            </div>
+            <div class="designer-credit">
+                <p>DESIGNED BY ASAD ARMAM, BSSE-I</p>
+                <p class="designer-message">Our group had faced so many difficulties for this project, but we had to do something special. So we kept going and made our limits exceed. This platform is a testament to our dedication and passion for education and technology.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>03322953540</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>asadarmam100@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-building"></i>
+                        <div>
+                            <h4>Office</h4>
+                            <p>Coming Soon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required placeholder="Your Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" required placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" required placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>IBADAT E-LEARNING is dedicated to providing quality software engineering education recognized by HEC.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> Phone: 03322953540</p>
+                <p><i class="fas fa-envelope"></i> Email: asadarmam100@gmail.com</p>
+                <p><i class="fas fa-building"></i> Office: C</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 IBADAT E-LEARNING. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeProfile">&times;</span>
+            <h2>My Profile</h2>
+            <div class="profile-details">
+                <!-- Avatar Section -->
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle profile-icon"></i>
+                </div>
+                <div class="profile-fields">
+                    <form id="profileForm">
+                        <div class="profile-field">
+                            <label for="profileName">Full Name</label>
+                            <input type="text" id="profileName" value="John Doe" required />
+                        </div>
+                        <div class="profile-field">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" value="john@example.com" required />
+                        </div>
+                        <div class="profile-field">
+                            <label for="profileBio">Bio</label>
+                            <textarea id="profileBio" placeholder="Tell us something about yourself...">Software Engineer with a love for teaching.</textarea>
+                        </div>
+                        <div class="profile-field">
+                            <label for="profilePassword">Change Password</label>
+                            <input type="password" id="profilePassword" placeholder="Leave blank to keep current" />
+                        </div>
+                        <button id="saveProfileBtn" type="submit">Save Changes</button>
+                    </form>
+                    <p id="profileSaveMessage" style="margin-top: 15px; color: green; display: none;">Profile updated successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

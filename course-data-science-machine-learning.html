@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science & Machine Learning - IBADAT E-LEARNING</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="IBADAT E-LEARNING Logo">
+                <span>IBADAT E-LEARNING</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html#courses"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                <li><a href="index.html#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li class="nav-item logged-out-nav">
+                    <a href="#" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </li>
+                <li class="nav-item logged-out-nav">
+                    <a href="#" class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a>
+                </li>
+                <li class="nav-item logged-in-nav" style="display: none;">
+                    <span class="welcome-message">Welcome,</span>
+                </li>
+                <li class="nav-item logged-in-nav user-menu-container" style="display: none;">
+                    <div class="user-info-trigger">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="loggedInUsername">User</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="#" class="dropdown-link">My Courses</a></li>
+                            <li><a href="#" class="dropdown-link" id="profileLink">My Profile</a></li>
+                            <li><a href="#" class="dropdown-link">Settings</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item logged-in-nav" style="display: none;">
+                    <a href="#" id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Custom Notification -->
+    <div id="customNotification" class="notification">
+        <p id="notificationMessage"></p>
+    </div>
+
+    <!-- Main Course Content Area -->
+    <section class="course-page">
+        <div class="course-container">
+            <h1>Data Science & Machine Learning</h1>
+            <p class="course-description">Master Python, ML models, data analysis, and AI tools with real-world projects.</p>
+            
+            <div class="course-details">
+                <div class="instructor-info">
+                    <h3>Instructor</h3>
+                    <p>Dr. Bilal Yusuf</p>
+                    <p>PhD in AI, with research in neural networks.</p>
+                </div>
+                <div class="course-meta-info">
+                    <h3>Course Info</h3>
+                    <p>Duration: 20 Weeks</p>
+                    <p>Level: Advanced</p>
+                    <p>Lectures: 40</p>
+                </div>
+            </div>
+
+            <div class="course-outline">
+                <h2>Course Outline</h2>
+                <ul>
+                    <li>Module 1: Python for Data Science</li>
+                    <li>Module 2: Statistics & Probability</li>
+                    <li>Module 3: Data Wrangling & Cleaning</li>
+                    <li>Module 4: Data Visualization</li>
+                    <li>Module 5: Supervised Learning</li>
+                    <li>Module 6: Unsupervised Learning</li>
+                    <li>Module 7: Deep Learning with TensorFlow</li>
+                    <li>Module 8: Real-World Projects & Model Deployment</li>
+                </ul>
+            </div>
+
+            <div class="course-materials">
+                <h2>Course Modules & Materials</h2>
+
+                <div class="module">
+                    <h3>Module 1: Python for Data Science</h3>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: Python Basics (20 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: NumPy & Pandas Guide</li>
+                        <li><i class="fas fa-laptop-code"></i> Exercise: Data Exploration with Pandas</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <h3>Module 2: Statistics & Probability</h3>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: Descriptive Stats (25 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: Probability Distributions</li>
+                        <li><i class="fas fa-question-circle"></i> Quiz: Probability & Stats</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <h3>Module 3: Supervised Learning</h3>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: Linear & Logistic Regression (30 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: Model Evaluation Techniques</li>
+                        <li><i class="fas fa-laptop-code"></i> Project: Predicting House Prices</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <h3>Module 4: Deep Learning</h3>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: Intro to Neural Networks (40 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: TensorFlow Basics</li>
+                        <li><i class="fas fa-laptop-code"></i> Lab: Build Your First Neural Network</li>
+                    </ul>
+                </div>
+
+                <!-- Additional modules as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>IBADAT E-LEARNING is dedicated to providing quality software engineering education recognized by HEC.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#courses">Courses</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> Phone: 03322953540</p>
+                <p><i class="fas fa-envelope"></i> Email: asadarmam100@gmail.com</p>
+                <p><i class="fas fa-building"></i> Office: Coming Soon</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 IBADAT E-LEARNING. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

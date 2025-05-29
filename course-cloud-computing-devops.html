@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing & DevOps - IBADAT E-LEARNING</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="IBADAT E-LEARNING Logo">
+                <span>IBADAT E-LEARNING</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html#courses"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                <li><a href="index.html#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li class="nav-item logged-out-nav"><a href="#" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li class="nav-item logged-out-nav"><a href="#" class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                <li class="nav-item logged-in-nav" style="display: none;"><span class="welcome-message">Welcome,</span></li>
+                <li class="nav-item logged-in-nav user-menu-container" style="display: none;">
+                    <div class="user-info-trigger">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="loggedInUsername">User</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="#" class="dropdown-link">My Courses</a></li>
+                            <li><a href="#" class="dropdown-link" id="profileLink">My Profile</a></li>
+                            <li><a href="#" class="dropdown-link">Settings</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item logged-in-nav" style="display: none;">
+                    <a href="#" id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Custom Notification -->
+    <div id="customNotification" class="notification">
+        <p id="notificationMessage"></p>
+    </div>
+
+    <!-- Main Course Content Area -->
+    <section class="course-page">
+        <div class="course-container">
+            <h1>Cloud Computing & DevOps</h1>
+            <p class="course-description">Master cloud platforms like AWS and Azure, CI/CD pipelines, Docker, Kubernetes, and infrastructure automation tools.</p>
+            
+            <div class="course-details">
+                <div class="instructor-info">
+                    <h3>Instructor</h3>
+                    <p>Mr. Adeel Farooq</p>
+                    <p>Cloud Architect at XYZ Corp.</p>
+                </div>
+                <div class="course-meta-info">
+                    <h3>Course Info</h3>
+                    <p>Duration: 14 Weeks</p>
+                    <p>Level: Advanced</p>
+                    <p>Lectures: 28</p>
+                </div>
+            </div>
+
+            <div class="course-outline">
+                <h2>Course Outline</h2>
+                <ul>
+                    <li>Module 1: Introduction to Cloud Computing</li>
+                    <li>Module 2: DevOps Fundamentals</li>
+                    <li>Module 3: AWS Core Services</li>
+                    <li>Module 4: Azure Overview</li>
+                    <li>Module 5: Infrastructure as Code (Terraform)</li>
+                    <li>Module 6: Continuous Integration & Delivery (CI/CD)</li>
+                    <li>Module 7: Docker & Containerization</li>
+                    <li>Module 8: Kubernetes & Orchestration</li>
+                    <li>Module 9: Monitoring & Logging</li>
+                    <li>Module 10: Final Project: Deploying a Cloud-Native App</li>
+                </ul>
+            </div>
+
+            <div class="course-materials">
+                <h2>Course Modules & Materials</h2>
+
+                <div class="module">
+                    <h3>Module 1: Introduction to Cloud Computing</h3>
+                    <p>Learn the fundamentals of cloud architecture and service models.</p>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: What is Cloud Computing? (12 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: IaaS vs PaaS vs SaaS</li>
+                        <li><i class="fas fa-question-circle"></i> Quiz: Cloud Basics</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <h3>Module 2: DevOps Fundamentals</h3>
+                    <p>Understand DevOps culture, automation, and collaboration strategies.</p>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: DevOps Explained (20 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: CI/CD Overview</li>
+                        <li><i class="fas fa-laptop-code"></i> Exercise: Set up GitHub Actions</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <h3>Module 5: Infrastructure as Code (IaC)</h3>
+                    <p>Use Terraform to manage infrastructure with code.</p>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: Terraform Basics (18 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: Terraform vs CloudFormation</li>
+                        <li><i class="fas fa-laptop-code"></i> Exercise: Provision EC2 with Terraform</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <h3>Module 7: Docker & Containers</h3>
+                    <p>Create and manage containerized applications.</p>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: Docker in Practice (22 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Reading: Docker Compose Guide</li>
+                        <li><i class="fas fa-laptop-code"></i> Exercise: Build and Run a Node.js App in Docker</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <h3>Module 10: Final Project</h3>
+                    <p>Deploy a full-stack app using CI/CD and Kubernetes on the cloud.</p>
+                    <ul class="material-list">
+                        <li><i class="fas fa-video"></i> Video: Project Walkthrough (15 min)</li>
+                        <li><i class="fas fa-file-alt"></i> Guide: Project Requirements</li>
+                        <li><i class="fas fa-laptop-code"></i> Deliverable: Submit Final GitHub Repo + Live Link</li>
+                    </ul>
+                </div>
+
+                <!-- Add more detailed modules if needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>IBADAT E-LEARNING is dedicated to providing quality software engineering education recognized by HEC.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#courses">Courses</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> Phone: 03322953540</p>
+                <p><i class="fas fa-envelope"></i> Email: asadarmam100@gmail.com</p>
+                <p><i class="fas fa-building"></i> Office: Coming Soon</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 IBADAT E-LEARNING. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
