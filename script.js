@@ -295,6 +295,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const userProfileSection = document.getElementById('user-profile');
     const saveProfileBtn = document.getElementById('saveProfileBtn');
 
+    // Map course IDs to their corresponding course pages
+    const coursePages = {
+        'web-development': 'course-web-development.html',
+        'mobile-development': 'course-mobile-app-development.html',
+        'data-science': 'course-data-science-machine-learning.html',
+        'cloud-computing': 'course-cloud-computing-devops.html'
+    };
+
     // Function to update navigation state and login status
     function updateNavigation(isLoggedInStatus, username = 'User') {
         isLoggedIn = isLoggedInStatus; // Update state variable
@@ -433,18 +441,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Map course IDs to their corresponding course pages
-        const coursePages = {
-            'web-development': 'course-web-development.html',
-            'mobile-development': 'course-mobile-app-development.html',
-            'data-science': 'course-data-science-machine-learning.html',
-            'cloud-computing': 'course-cloud-computing-devops.html'
-        };
+        // Get enrolled courses from localStorage
+        const username = localStorage.getItem('loggedInUsername');
+        const enrolledCourses = JSON.parse(localStorage.getItem(`enrolledCourses_${username}`) || '[]');
 
         // If button text is "Enroll Now", change it to "View Course"
         if (button.textContent === 'Enroll Now') {
             button.textContent = 'View Course';
             button.setAttribute('data-viewing', 'true');
+            
+            // Add course to enrolled courses if not already enrolled
+            if (!enrolledCourses.includes(courseId)) {
+                enrolledCourses.push(courseId);
+                localStorage.setItem(`enrolledCourses_${username}`, JSON.stringify(enrolledCourses));
+            }
+            
             showNotification('Successfully enrolled in the course!');
             return;
         }
@@ -458,7 +469,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Update the enroll button click handlers
+    // Function to update course buttons based on enrollment status
+    function updateCourseButtons() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) return;
+
+        const username = localStorage.getItem('loggedInUsername');
+        const enrolledCourses = JSON.parse(localStorage.getItem(`enrolledCourses_${username}`) || '[]');
+
+        document.querySelectorAll('.enroll-btn').forEach(button => {
+            const courseId = button.getAttribute('data-course-id');
+            if (enrolledCourses.includes(courseId)) {
+                button.textContent = 'View Course';
+                button.setAttribute('data-viewing', 'true');
+            }
+        });
+    }
+
+    // Add click handlers for enroll buttons
     document.querySelectorAll('.enroll-btn').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -471,23 +499,102 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to toggle dropdown visibility
     function toggleDropdown() {
         if (userMenuContainer) {
-             userMenuContainer.classList.toggle('show');
-             userInfoTrigger.classList.toggle('active'); // For arrow animation
+            console.log('Toggling dropdown');
+            userMenuContainer.classList.toggle('show');
+            userInfoTrigger.classList.toggle('active');
         }
     }
 
     // Add event listener to user info trigger
     if (userInfoTrigger) {
-        userInfoTrigger.addEventListener('click', toggleDropdown);
+        userInfoTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('User info trigger clicked');
+            toggleDropdown();
+        });
     }
 
-    // Close the dropdown if the user clicks outside of it
-    window.addEventListener('click', function(event) {
-        if (userMenuContainer && !userMenuContainer.contains(event.target) && !event.target.classList.contains('dropdown-link')) {
-            userMenuContainer.classList.remove('show');
-            userInfoTrigger.classList.remove('active');
-        }
-    });
+    // Function to handle My Courses link click
+    const myCoursesLink = document.querySelector('.dropdown-menu ul li:first-child a');
+    if (myCoursesLink) {
+        console.log('My Courses link found');
+        myCoursesLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log('My Courses link clicked');
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                showNotification('Please log in to view your courses');
+                openModal(loginModal);
+                return;
+            }
+
+            const username = localStorage.getItem('loggedInUsername');
+            console.log('Username:', username);
+            const enrolledCourses = JSON.parse(localStorage.getItem(`enrolledCourses_${username}`) || '[]');
+            console.log('Enrolled courses:', enrolledCourses);
+            
+            if (enrolledCourses.length === 0) {
+                showNotification('You have not enrolled in any courses yet');
+                return;
+            }
+
+            // Create and show enrolled courses modal
+            const coursesModal = document.createElement('div');
+            coursesModal.className = 'modal';
+            coursesModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h2>My Enrolled Courses</h2>
+                    <div class="enrolled-courses-list">
+                        ${enrolledCourses.map(courseId => {
+                            const courseNames = {
+                                'web-development': 'Web Development Fundamentals',
+                                'mobile-development': 'Mobile App Development',
+                                'data-science': 'Data Science & Machine Learning',
+                                'cloud-computing': 'Cloud Computing & DevOps'
+                            };
+                            return `
+                                <div class="enrolled-course-item">
+                                    <h3>${courseNames[courseId]}</h3>
+                                    <a href="${coursePages[courseId]}" class="view-course-btn">Continue Learning</a>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(coursesModal);
+            coursesModal.style.display = 'block';
+            setTimeout(() => coursesModal.classList.add('show'), 10);
+
+            // Close button functionality
+            const closeButton = coursesModal.querySelector('.close-button');
+            closeButton.addEventListener('click', () => {
+                coursesModal.classList.remove('show');
+                setTimeout(() => {
+                    coursesModal.remove();
+                }, 300);
+            });
+
+            // Click outside to close
+            coursesModal.addEventListener('click', (e) => {
+                if (e.target === coursesModal) {
+                    coursesModal.classList.remove('show');
+                    setTimeout(() => {
+                        coursesModal.remove();
+                    }, 300);
+                }
+            });
+        });
+    } else {
+        console.log('My Courses link not found');
+    }
+
+    // Update course buttons on page load
+    updateCourseButtons();
 
     // Function to show a specific section and hide others
     function showSection(sectionId) {
@@ -507,7 +614,10 @@ document.addEventListener('DOMContentLoaded', function() {
         profileLink.addEventListener('click', function(event) {
             event.preventDefault();
             toggleDropdown(); // Close dropdown
-            profileModal.classList.add('show'); // Show the profile modal
+            profileModal.style.display = 'block';
+            setTimeout(() => {
+                profileModal.classList.add('show');
+            }, 10);
         });
     }
 
@@ -515,12 +625,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileModal = document.getElementById('profileModal');
     const closeProfile = document.getElementById('closeProfile');
     const profileForm = document.getElementById('profileForm');
-    const profileSaveMessage = document.getElementById('profileSaveMessage'); // Renamed to avoid conflict
+    const profileSaveMessage = document.getElementById('profileSaveMessage');
 
     // Hide Modal (using the close button)
     if (closeProfile) {
         closeProfile.addEventListener('click', function () {
             profileModal.classList.remove('show');
+            setTimeout(() => {
+                profileModal.style.display = 'none';
+            }, 300);
         });
     }
 
@@ -528,6 +641,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function (e) {
         if (e.target === profileModal) {
             profileModal.classList.remove('show');
+            setTimeout(() => {
+                profileModal.style.display = 'none';
+            }, 300);
         }
     });
 
@@ -542,20 +658,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('profilePassword').value;
 
             if (name === '' || email === '') {
-                showNotification('Name and Email are required.', 'error'); // Using custom notification
+                showNotification('Name and Email are required.', 'error');
                 return;
             }
 
             // Simulate saving data
             console.log('Saved Profile:', { name, email, bio, password });
 
-            // Show success message (using custom notification)
+            // Show success message
             showNotification('Profile saved successfully!');
-            profileForm.reset(); // Optional: reset form after saving
+            profileForm.reset();
 
+            // Close modal after 2 seconds
             setTimeout(() => {
                 profileModal.classList.remove('show');
-            }, 2000); // Hide modal after 2 seconds
+                setTimeout(() => {
+                    profileModal.style.display = 'none';
+                }, 300);
+            }, 2000);
         });
     }
     // *** End New Profile Modal JavaScript ***
