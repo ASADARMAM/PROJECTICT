@@ -326,13 +326,14 @@
     </div>
 
     <script src="script.js"></script>
-
-    <!-- Include the MailJS script -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
-    <script type="text/javascript">
-      (function(){
-        emailjs.init("7AH0UPvLvuzESU-fm");
-      })();
+    <!-- Add EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="contact.js"></script>
+    <script>
+        (function() {
+            // Initialize EmailJS with your public key
+            emailjs.init("7AH0UPvLvuzESU-fm"); // Your actual public key from EmailJS
+        })();
     </script>
 </body>
 </html>

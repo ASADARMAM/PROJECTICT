@@ -124,28 +124,13 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            // Prepare template parameters
-            const templateParams = {
-                from_name: formData.name,
-                from_email: formData.email,
-                subject: formData.subject,
-                message: formData.message
-            };
-
-            // Send email using EmailJS
-            emailjs.send('service_mwkpo7h', 'template_ok6qxc1', templateParams)
-                .then(function(response) {
-                    showNotification('Message sent successfully!', 'success');
-                    contactForm.reset();
-                })
-                .catch(function(error) {
-                    console.error('FAILED...', error);
-                    showNotification('Failed to send message. Please try again.', 'error');
-                })
-                .finally(function() {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                });
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
         });
     }
 
