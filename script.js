@@ -159,17 +159,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the modals
     const loginModal = document.getElementById('loginModal');
     const signupModal = document.getElementById('signupModal');
+    const forgotPasswordModal = document.getElementById('forgotPasswordModal');
 
     // Get the links that open the modals
     const loginBtnNav = document.querySelector('.login-btn');
     const signupBtnNav = document.querySelector('.signup-btn');
+    const showForgotPasswordLink = document.getElementById('showForgotPassword');
 
     // Get the <span> element that closes the modal
     const closeButtons = document.querySelectorAll('.close-button');
+    const closeForgotPasswordBtn = document.getElementById('closeForgotPassword');
 
     // Get the links to switch between modals
     const showSignupLink = document.getElementById('showSignup');
     const showLoginLink = document.getElementById('showLogin');
+    const showLoginFromForgotLink = document.getElementById('showLoginFromForgot');
 
     // Function to open a modal
     function openModal(modal) {
@@ -210,12 +214,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // When the user clicks the close button on the forgot password modal, close it
+    if (closeForgotPasswordBtn) {
+        closeForgotPasswordBtn.addEventListener('click', function() {
+            closeModal(forgotPasswordModal);
+        });
+    }
+
     // When the user clicks anywhere outside of the modal, close it
     window.addEventListener('click', function(event) {
         if (event.target.classList.contains('modal')) {
             closeModal(event.target);
         }
     });
+
+    // When the user clicks the 'Forgot Password?' link, show the forgot password modal and hide login
+    if (showForgotPasswordLink) {
+        showForgotPasswordLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            closeModal(loginModal);
+            openModal(forgotPasswordModal);
+        });
+    }
+
+    // When the user clicks the 'Login' link from forgot password modal, show login and hide forgot password
+    if (showLoginFromForgotLink) {
+        showLoginFromForgotLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            closeModal(forgotPasswordModal);
+            openModal(loginModal);
+        });
+    }
 
     // Handle switching between login and signup modals
     if (showSignupLink) {
@@ -310,12 +339,12 @@ document.addEventListener('DOMContentLoaded', function() {
             loggedOutNavItems.forEach(item => item.style.display = 'none');
             // Use flex for user menu container to allow dropdown
             if (userMenuContainer) {
-                 userMenuContainer.style.display = 'flex'; // Use flex to align items and position dropdown
+                userMenuContainer.style.display = 'flex'; // Use flex to align items and position dropdown
             }
             loggedInNavItems.forEach(item => {
-                 if (!item.classList.contains('user-menu-container')) {
-                     item.style.display = 'list-item';
-                 }
+                if (!item.classList.contains('user-menu-container')) {
+                    item.style.display = 'list-item';
+                }
             });
 
             if (loggedInUsernameSpan) {
@@ -323,34 +352,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             loggedOutNavItems.forEach(item => item.style.display = 'list-item'); // Or appropriate display type
-             if (userMenuContainer) {
-                 userMenuContainer.style.display = 'none'; // Hide user menu container
+            if (userMenuContainer) {
+                userMenuContainer.style.display = 'none'; // Hide user menu container
             }
             loggedInNavItems.forEach(item => {
-                 if (!item.classList.contains('user-menu-container')) {
-                     item.style.display = 'none';
-                 }
+                if (!item.classList.contains('user-menu-container')) {
+                    item.style.display = 'none';
+                }
             });
-             if (loggedInUsernameSpan) {
+            if (loggedInUsernameSpan) {
                 loggedInUsernameSpan.textContent = 'User'; // Reset username on logout
             }
-             // Hide profile section on logout
-             if (userProfileSection) {
-                 userProfileSection.style.display = 'none';
-             }
-             // Show other sections again (optional, depends on desired behavior)
-             const sections = document.querySelectorAll('section');
-             sections.forEach(section => {
-                 if (section.id !== 'user-profile') {
-                     section.style.display = 'block';
-                 }
-             });
+            // Hide profile section on logout
+            if (userProfileSection) {
+                userProfileSection.style.display = 'none';
+            }
+            // Show other sections again (optional, depends on desired behavior)
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                if (section.id !== 'user-profile') {
+                    section.style.display = 'block';
+                }
+            });
         }
     }
 
-    // Handle form submissions (simulated)
+    // Handle form submissions with Firebase
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
     const customNotification = document.getElementById('customNotification');
     const notificationMessage = document.getElementById('notificationMessage');
 
@@ -370,120 +400,199 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
+        loginForm.addEventListener('submit', async function(event) {
             event.preventDefault();
-            // In a real application, you would get the username from the server response
-            const simulatedUsername = document.getElementById('modal-email').value.split('@')[0]; // Simulate getting username from email
-            // Simulate successful login
-            showNotification('Login successful!');
-            closeModal(loginModal);
-            
-            // Set login state in localStorage
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('loggedInUsername', simulatedUsername); // Store username as well
+            const email = document.getElementById('modal-email').value;
+            const password = document.getElementById('modal-password').value;
 
-            updateNavigation(true, simulatedUsername); // Update navigation with username and status
-            // Redirect to home section
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                showNotification('Login successful!');
+                closeModal(loginModal);
+                updateNavigation(true, user.email);
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                showNotification(error.message, 'error');
+            }
         });
     }
 
     if (signupForm) {
-        signupForm.addEventListener('submit', function(event) {
+        signupForm.addEventListener('submit', async function(event) {
             event.preventDefault();
-             // In a real application, you would get the username from the server response
-            const simulatedUsername = document.getElementById('modal-signup-email').value.split('@')[0]; // Simulate getting username from email
-            // Simulate successful signup
-            showNotification('Signup successful!');
-            closeModal(signupModal);
-            
-            // Set login state in localStorage
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('loggedInUsername', simulatedUsername); // Store username as well
+            const email = document.getElementById('modal-signup-email').value;
+            const password = document.getElementById('modal-signup-password').value;
+            const confirmPassword = document.getElementById('modal-confirm-password').value;
 
-            updateNavigation(true, simulatedUsername); // Update navigation with username and status
-            // Redirect to home section
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            // Validate passwords match before proceeding
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return; // Stop execution here if passwords don't match
+            }
+
+            // Validate password length
+            if (password.length < 6) {
+                showNotification('Password must be at least 6 characters long', 'error');
+                return;
+            }
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                showNotification('Signup successful!');
+                closeModal(signupModal);
+                updateNavigation(true, user.email);
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                showNotification(error.message, 'error');
+            }
         });
     }
 
-    // Handle logout (simulated)
+    // Handle logout with Firebase
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function(event) {
+        logoutBtn.addEventListener('click', async function(event) {
             event.preventDefault();
-            // Simulate logout
-            showNotification('Logged out successfully!');
-            
-            // Remove login state from localStorage
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('loggedInUsername');
+            try {
+                await signOut(auth);
+                showNotification('Logged out successfully!');
+                updateNavigation(false);
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                showNotification(error.message, 'error');
+            }
+        });
+    }
 
-            updateNavigation(false); // Update navigation to logged-out state and status
-            // Optionally, redirect to home or login page
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+    // Handle Forgot Password Form Submission with Firebase
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('forgot-email').value;
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showNotification('Password reset email sent successfully. Please check your inbox.');
+                closeModal(forgotPasswordModal);
+            } catch (error) {
+                showNotification(error.message, 'error');
+            }
         });
     }
 
     // Function to handle course enrollment/viewing
-    function handleCourseAction(courseId, isLoggedIn, button) {
+    async function handleCourseAction(courseId, isLoggedIn, button) {
         if (!isLoggedIn) {
             showNotification('Please log in to access courses');
             openModal(loginModal);
             return;
         }
 
-        // Get enrolled courses from localStorage
-        const username = localStorage.getItem('loggedInUsername');
-        const enrolledCourses = JSON.parse(localStorage.getItem(`enrolledCourses_${username}`) || '[]');
+        const user = auth.currentUser;
+        if (!user) return;
 
-        // If button text is "Enroll Now", change it to "View Course"
-        if (button.textContent === 'Enroll Now') {
-            button.textContent = 'View Course';
-            button.setAttribute('data-viewing', 'true');
-            
-            // Add course to enrolled courses if not already enrolled
-            if (!enrolledCourses.includes(courseId)) {
-                enrolledCourses.push(courseId);
-                localStorage.setItem(`enrolledCourses_${username}`, JSON.stringify(enrolledCourses));
+        const userDocRef = doc(db, 'users', user.uid);
+
+        try {
+            const userDocSnap = await getDoc(userDocRef);
+            let enrolledCourses = [];
+
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                if (userData && userData.enrolledCourses) {
+                    enrolledCourses = userData.enrolledCourses;
+                }
+            } else {
+                // Create the user document if it doesn't exist
+                await setDoc(userDocRef, { enrolledCourses: [] });
             }
-            
-            showNotification('Successfully enrolled in the course!');
-            return;
-        }
 
-        // If button text is "View Course", navigate to the course page
-        const coursePage = coursePages[courseId];
-        if (coursePage) {
-            window.location.href = coursePage;
-        } else {
-            showNotification('Course page not found');
+            // If button text is "Enroll Now", change it to "View Course"
+            if (button.textContent === 'Enroll Now') {
+                // Add course to enrolled courses using arrayUnion to avoid duplicates and race conditions
+                if (!enrolledCourses.includes(courseId)) {
+                    await updateDoc(userDocRef, {
+                        enrolledCourses: arrayUnion(courseId)
+                    });
+                    showNotification('Successfully enrolled in the course!');
+                    // Update local state immediately for responsiveness
+                    enrolledCourses.push(courseId);
+                    button.textContent = 'View Course';
+                    button.setAttribute('data-viewing', 'true');
+                } else {
+                     showNotification('You are already enrolled in this course!');
+                     button.textContent = 'View Course'; // Ensure button is updated even if already enrolled
+                     button.setAttribute('data-viewing', 'true');
+                }
+
+            } else if (button.textContent === 'View Course') {
+                 // If button text is "View Course", navigate to the course page
+                 const coursePage = coursePages[courseId];
+                 if (coursePage) {
+                     window.location.href = coursePage;
+                 } else {
+                     showNotification('Course page not found');
+                 }
+            }
+             // After any action that might change enrollment status, update buttons
+             updateCourseButtons();
+
+        } catch (error) {
+            console.error('Error handling course action:', error);
+            showNotification('Error performing course action.', 'error');
         }
     }
 
-    // Function to update course buttons based on enrollment status
-    function updateCourseButtons() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        if (!isLoggedIn) return;
 
-        const username = localStorage.getItem('loggedInUsername');
-        const enrolledCourses = JSON.parse(localStorage.getItem(`enrolledCourses_${username}`) || '[]');
+    // Function to update course buttons based on enrollment status from Firestore
+    async function updateCourseButtons() {
+        const user = auth.currentUser;
+        if (!user) {
+            // If no user is logged in, ensure all buttons show "Enroll Now"
+            document.querySelectorAll('.enroll-btn').forEach(button => {
+                button.textContent = 'Enroll Now';
+                button.removeAttribute('data-viewing');
+            });
+            return;
+        }
 
-        document.querySelectorAll('.enroll-btn').forEach(button => {
-            const courseId = button.getAttribute('data-course-id');
-            if (enrolledCourses.includes(courseId)) {
-                button.textContent = 'View Course';
-                button.setAttribute('data-viewing', 'true');
+        const userDocRef = doc(db, 'users', user.uid);
+
+        try {
+            const userDocSnap = await getDoc(userDocRef);
+            let enrolledCourses = [];
+
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                if (userData && userData.enrolledCourses) {
+                    enrolledCourses = userData.enrolledCourses;
+                }
             }
-        });
+
+            document.querySelectorAll('.enroll-btn').forEach(button => {
+                const courseId = button.getAttribute('data-course-id');
+                if (enrolledCourses.includes(courseId)) {
+                    button.textContent = 'View Course';
+                    button.setAttribute('data-viewing', 'true');
+                } else {
+                    button.textContent = 'Enroll Now';
+                    button.removeAttribute('data-viewing');
+                }
+            });
+        } catch (error) {
+            console.error('Error updating course buttons:', error);
+            // Optionally show an error notification, but might be disruptive on page load
+        }
     }
 
     // Add click handlers for enroll buttons
@@ -491,10 +600,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function(event) {
             event.preventDefault();
             const courseId = this.getAttribute('data-course-id');
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            handleCourseAction(courseId, isLoggedIn, this);
+            const user = auth.currentUser; // Get current user here
+            // Pass whether the user is logged in directly
+            handleCourseAction(courseId, !!user, this);
         });
     });
+
 
     // Function to toggle dropdown visibility
     function toggleDropdown() {
@@ -519,82 +630,105 @@ document.addEventListener('DOMContentLoaded', function() {
     const myCoursesLink = document.querySelector('.dropdown-menu ul li:first-child a');
     if (myCoursesLink) {
         console.log('My Courses link found');
-        myCoursesLink.addEventListener('click', function(event) {
+        myCoursesLink.addEventListener('click', async function(event) { // Added async here
             event.preventDefault();
             event.stopPropagation();
             console.log('My Courses link clicked');
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            if (!isLoggedIn) {
+            const user = auth.currentUser;
+            if (!user) {
                 showNotification('Please log in to view your courses');
                 openModal(loginModal);
                 return;
             }
 
-            const username = localStorage.getItem('loggedInUsername');
-            console.log('Username:', username);
-            const enrolledCourses = JSON.parse(localStorage.getItem(`enrolledCourses_${username}`) || '[]');
-            console.log('Enrolled courses:', enrolledCourses);
-            
-            if (enrolledCourses.length === 0) {
-                showNotification('You have not enrolled in any courses yet');
-                return;
-            }
+            const userDocRef = doc(db, 'users', user.uid);
 
-            // Create and show enrolled courses modal
-            const coursesModal = document.createElement('div');
-            coursesModal.className = 'modal';
-            coursesModal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button">&times;</span>
-                    <h2>My Enrolled Courses</h2>
-                    <div class="enrolled-courses-list">
-                        ${enrolledCourses.map(courseId => {
-                            const courseNames = {
-                                'web-development': 'Web Development Fundamentals',
-                                'mobile-development': 'Mobile App Development',
-                                'data-science': 'Data Science & Machine Learning',
-                                'cloud-computing': 'Cloud Computing & DevOps'
-                            };
-                            return `
-                                <div class="enrolled-course-item">
-                                    <h3>${courseNames[courseId]}</h3>
-                                    <a href="${coursePages[courseId]}" class="view-course-btn">Continue Learning</a>
-                                </div>
-                            `;
-                        }).join('')}
+            try {
+                const userDocSnap = await getDoc(userDocRef);
+                let enrolledCourses = [];
+
+                if (userDocSnap.exists()) {
+                    const userData = userDocSnap.data();
+                    if (userData && userData.enrolledCourses) {
+                        enrolledCourses = userData.enrolledCourses;
+                    }
+                }
+
+                console.log('Enrolled courses:', enrolledCourses);
+
+                if (enrolledCourses.length === 0) {
+                    showNotification('You have not enrolled in any courses yet');
+                    return;
+                }
+
+
+                // Create and show enrolled courses modal
+                const coursesModal = document.createElement('div');
+                coursesModal.className = 'modal';
+                coursesModal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="close-button">&times;</span>
+                        <h2>My Enrolled Courses</h2>
+                        <div class="enrolled-courses-list">
+                            ${enrolledCourses.map(courseId => {
+                                const courseNames = {
+                                    'web-development': 'Web Development Fundamentals',
+                                    'mobile-development': 'Mobile App Development',
+                                    'data-science': 'Data Science & Machine Learning',
+                                    'cloud-computing': 'Cloud Computing & DevOps'
+                                };
+                                return `
+                                    <div class="enrolled-course-item">
+                                        <h3>${courseNames[courseId]}</h3>
+                                        <a href="${coursePages[courseId]}" class="view-course-btn">Continue Learning</a>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
 
-            document.body.appendChild(coursesModal);
-            coursesModal.style.display = 'block';
-            setTimeout(() => coursesModal.classList.add('show'), 10);
+                document.body.appendChild(coursesModal);
+                coursesModal.style.display = 'block';
+                setTimeout(() => coursesModal.classList.add('show'), 10);
 
-            // Close button functionality
-            const closeButton = coursesModal.querySelector('.close-button');
-            closeButton.addEventListener('click', () => {
-                coursesModal.classList.remove('show');
-                setTimeout(() => {
-                    coursesModal.remove();
-                }, 300);
-            });
-
-            // Click outside to close
-            coursesModal.addEventListener('click', (e) => {
-                if (e.target === coursesModal) {
+                // Close button functionality
+                const closeButton = coursesModal.querySelector('.close-button');
+                closeButton.addEventListener('click', () => {
                     coursesModal.classList.remove('show');
                     setTimeout(() => {
                         coursesModal.remove();
                     }, 300);
-                }
-            });
+                });
+
+                // Click outside to close
+                coursesModal.addEventListener('click', (e) => {
+                    if (e.target === coursesModal) {
+                        coursesModal.classList.remove('show');
+                        setTimeout(() => {
+                            coursesModal.remove();
+                        }, 300);
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching enrolled courses:', error);
+                showNotification('Error fetching enrolled courses.', 'error');
+            }
         });
     } else {
         console.log('My Courses link not found');
     }
 
-    // Update course buttons on page load
-    updateCourseButtons();
+    // Check login status on page load and update buttons
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            updateNavigation(true, user.email);
+            updateCourseButtons(); // Update buttons on login
+        } else {
+            updateNavigation(false);
+             updateCourseButtons(); // Update buttons on logout
+        }
+    });
 
     // Function to show a specific section and hide others
     function showSection(sectionId) {
@@ -679,14 +813,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     // *** End New Profile Modal JavaScript ***
-
-    // Check login status on page load
-    const storedLoginStatus = localStorage.getItem('isLoggedIn');
-    const storedUsername = localStorage.getItem('loggedInUsername');
-
-    if (storedLoginStatus === 'true') {
-        updateNavigation(true, storedUsername);
-    } else {
-        updateNavigation(false);
-    }
 }); 

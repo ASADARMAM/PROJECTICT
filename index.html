@@ -160,6 +160,7 @@
                 <button type="submit" class="auth-button">Login</button>
             </form>
             <p>Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+            <p><a href="#" id="showForgotPassword" style="font-size: 0.8rem; margin-top: 10px; display: block; text-align: center;">Forgot Password?</a></p>
         </div>
     </div>
 
@@ -325,7 +326,71 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeForgotPassword">&times;</span>
+            <h2>Reset Password</h2>
+            <form id="forgotPasswordForm">
+                <p>Enter your email address and we will send you a link to reset your password.</p>
+                <div class="form-group">
+                    <label for="forgot-email">Email Address</label>
+                    <input type="email" id="forgot-email" name="email" required>
+                </div>
+                <button type="submit" class="auth-button">Send Reset Email</button>
+            </form>
+            <p>Remember your password? <a href="#" id="showLoginFromForgot">Login</a></p>
+        </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+      import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDLY3bMYU5Zgek_CpSAMPQq2htzpN5lvps",
+        authDomain: "projectict-ae245.firebaseapp.com",
+        projectId: "projectict-ae245",
+        storageBucket: "projectict-ae245.firebasestorage.app",
+        messagingSenderId: "35487410422",
+        appId: "1:35487410422:web:85c9cf69a15fef8ace64d7",
+        measurementId: "G-30XKWPSEKH"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // Make auth and db available globally
+      window.auth = auth;
+      window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+      window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+      window.signOut = signOut;
+      window.onAuthStateChanged = onAuthStateChanged;
+      window.db = db;
+      window.doc = doc;
+      window.getDoc = getDoc;
+      window.setDoc = setDoc;
+      window.updateDoc = updateDoc;
+      window.arrayUnion = arrayUnion;
+      window.sendPasswordResetEmail = sendPasswordResetEmail;
+
+      // AUTH STATE CHANGE (update UI)
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          document.querySelectorAll('.logged-in-nav').forEach(el => el.style.display = '');
+          document.querySelectorAll('.logged-out-nav').forEach(el => el.style.display = 'none');
+          document.getElementById('loggedInUsername').textContent = user.email;
+        } else {
+          document.querySelectorAll('.logged-in-nav').forEach(el => el.style.display = 'none');
+          document.querySelectorAll('.logged-out-nav').forEach(el => el.style.display = '');
+        }
+      });
+    </script>
     <!-- Add EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="contact.js"></script>
@@ -335,5 +400,6 @@
             emailjs.init("7AH0UPvLvuzESU-fm"); // Your actual public key from EmailJS
         })();
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
