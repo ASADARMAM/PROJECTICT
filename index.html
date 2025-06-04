@@ -33,9 +33,9 @@
                 </li>
                  <li class="nav-item logged-in-nav user-menu-container" style="display: none;">
                      <div class="user-info-trigger">
-                         <i class="fas fa-user-circle"></i> <!-- Basic profile picture icon -->
-                         <span id="loggedInUsername">User</span> <!-- Placeholder for username -->
-                         <i class="fas fa-chevron-down dropdown-arrow"></i> <!-- Dropdown arrow -->
+                         <img src="images/default-avatar.png" alt="Profile" class="nav-profile-pic">
+                         <span id="loggedInUsername">User</span>
+                         <i class="fas fa-chevron-down dropdown-arrow"></i>
                      </div>
                      <div class="dropdown-menu">
                          <ul>
@@ -59,10 +59,26 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Master Software Engineering with HEC Recognized Courses</h1>
-            <p>Learn from industry experts and get certified with our comprehensive software engineering program</p>
-            <a href="#courses" class="cta-button">Explore Courses</a>
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <div class="hero-content">
+                    <h1>Master Software Engineering with HEC Recognized Courses</h1>
+                    <p>Learn from industry experts and get certified with our comprehensive software engineering program</p>
+                    <a href="#courses" class="cta-button">Explore Courses</a>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="images/ibadat-slide.jpg" alt="IBADAT Slide" class="hero-slide-img">
+                <div class="hero-content">
+                    <h1>Join Us</h1>
+                    <p>Be part of a vibrant learning community and unlock your potential!</p>
+                    <a href="#about" class="cta-button">Join Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-dots">
+            <span class="hero-dot active"></span>
+            <span class="hero-dot"></span>
         </div>
     </section>
 
@@ -118,6 +134,78 @@
                     <a href="#" class="enroll-btn" data-course-id="cloud-computing">Enroll Now</a>
                 </div>
             </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/ui-ux.webp" alt="UI/UX Design">
+                <div class="course-content">
+                    <h3>UI/UX Design Essentials</h3>
+                    <p>Design beautiful and user-friendly interfaces</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 10 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 700 Students</span>
+                    </div>
+                    <a href="course-ui-ux-design.html" class="enroll-btn" data-course-id="ui-ux-design">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/cyber-security.jpg" alt="Cybersecurity">
+                <div class="course-content">
+                    <h3>Cybersecurity Fundamentals</h3>
+                    <p>Protect systems and data from cyber threats</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 8 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 600 Students</span>
+                    </div>
+                    <a href="course-cybersecurity.html" class="enroll-btn" data-course-id="cybersecurity">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/ai-and-deep.jpg" alt="AI & Deep Learning">
+                <div class="course-content">
+                    <h3>AI & Deep Learning</h3>
+                    <p>Explore neural networks and advanced AI models</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 18 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 1.1k Students</span>
+                    </div>
+                    <a href="course-ai-deep-learning.html" class="enroll-btn" data-course-id="ai-deep-learning">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/web3.0.jpg" alt="Blockchain">
+                <div class="course-content">
+                    <h3>Blockchain & Web3</h3>
+                    <p>Learn the fundamentals of blockchain technology</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 12 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 500 Students</span>
+                    </div>
+                    <a href="course-blockchain.html" class="enroll-btn" data-course-id="blockchain">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/game-development.png" alt="Game Development">
+                <div class="course-content">
+                    <h3>Game Development</h3>
+                    <p>Build games with Unity and Unreal Engine</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 15 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 900 Students</span>
+                    </div>
+                    <a href="course-game-development.html" class="enroll-btn" data-course-id="game-development">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <img src="images/digital-marketing.jpg" alt="Digital Marketing">
+                <div class="course-content">
+                    <h3>Digital Marketing</h3>
+                    <p>Master SEO, SEM, and social media marketing</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> 9 Weeks</span>
+                        <span><i class="fas fa-user-graduate"></i> 1.3k Students</span>
+                    </div>
+                    <a href="course-digital-marketing.html" class="enroll-btn" data-course-id="digital-marketing">Enroll Now</a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -150,17 +238,24 @@
             <h2>Login</h2>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="modal-email">Email/Username</label>
-                    <input type="text" id="modal-email" name="email" required>
+                    <input type="email" id="modal-email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label for="modal-password">Password</label>
-                    <input type="password" id="modal-password" name="password" required>
+                    <input type="password" id="modal-password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="auth-button">Login</button>
+                <div class="form-group checkbox-group">
+                    <label class="instructor-checkbox-label">
+                        <input type="checkbox" id="instructor-checkbox">
+                        I am an instructor
+                    </label>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+                <div class="modal-links">
+                    <a href="#" id="showForgotPassword">Forgot Password?</a>
+                    <span>|</span>
+                    <a href="#" id="showSignup">Sign Up</a>
+                </div>
             </form>
-            <p>Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
-            <p><a href="#" id="showForgotPassword" style="font-size: 0.8rem; margin-top: 10px; display: block; text-align: center;">Forgot Password?</a></p>
         </div>
     </div>
 
@@ -186,6 +281,16 @@
                     <label for="modal-confirm-password">Confirm Password</label>
                     <input type="password" id="modal-confirm-password" name="confirm-password" required>
                 </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="signup-instructor-checkbox">
+                        Register as an instructor
+                    </label>
+                </div>
+                <div id="instructor-code-group" class="form-group" style="display: none;">
+                    <label for="instructor-code">Instructor Code</label>
+                    <input type="text" id="instructor-code" name="instructor-code" placeholder="Enter instructor verification code">
+                </div>
                 <button type="submit" class="auth-button">Sign Up</button>
             </form>
             <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
@@ -208,6 +313,14 @@
             <div class="designer-credit">
                 <p>DESIGNED BY ASAD ARMAM, BSSE-I</p>
                 <p class="designer-message">Our group had faced so many difficulties for this project, but we had to do something special. So we kept going and made our limits exceed. This platform is a testament to our dedication and passion for education and technology.</p>
+            </div>
+            <!-- Beautiful Map Section -->
+            <div class="footer-map-container">
+                <h4 style="margin-top: 2rem; color: #3498db; font-size: 1.2rem;">Find Us on the Map</h4>
+                <p style="color: #555; margin-bottom: 1rem;">Visit IBADAT International University, Islamabad. See our location below:</p>
+                <div class="footer-map-embed">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d44727.926394649134!2d73.23982556848286!3d33.568364374943116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfee56eaa66a77%3A0x5571fb34fd106359!2sIBADAT%20International%20University!5e0!3m2!1sen!2s!4v1748890118053!5m2!1sen!2s" width="100%" height="250" style="border:0; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.12);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
         </div>
     </section>
@@ -298,7 +411,27 @@
             <div class="profile-details">
                 <!-- Avatar Section -->
                 <div class="profile-avatar">
-                    <i class="fas fa-user-circle profile-icon"></i>
+                    <div class="profile-pic-wrapper">
+                        <img src="images/default-avatar.png" alt="Profile Picture" id="profilePicDisplay" class="profile-pic">
+                        <div class="profile-pic-options">
+                            <input type="file" id="galleryInput" accept="image/*" style="display: none;">
+                            <input type="file" id="cameraInput" accept="image/*" capture="user" style="display: none;">
+                            <button type="button" id="changeProfilePicBtn" class="change-pic-btn">
+                                <i class="fas fa-camera"></i> Change Picture
+                            </button>
+                            <div class="pic-option-buttons" style="display: none;">
+                                <button type="button" class="pic-option-btn camera-btn">
+                                    <i class="fas fa-camera"></i> Take Photo
+                                </button>
+                                <button type="button" class="pic-option-btn gallery-btn">
+                                    <i class="fas fa-images"></i> Choose from Gallery
+                                </button>
+                                <button type="button" class="pic-option-btn default-btn">
+                                    <i class="fas fa-user-circle"></i> Use Default
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="profile-fields">
                     <form id="profileForm">
@@ -343,63 +476,272 @@
         </div>
     </div>
 
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
-      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-      import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+    <div id="particle-background" class="particle-background"></div>
 
+    <!-- Load Firebase SDKs first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script>
+        // Wait for Firebase SDKs to load
+        window.addEventListener('load', function() {
+            // Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyDLY3bMYU5Zgek_CpSAMPQq2htzpN5lvps",
         authDomain: "projectict-ae245.firebaseapp.com",
         projectId: "projectict-ae245",
-        storageBucket: "projectict-ae245.firebasestorage.app",
+                storageBucket: "projectict-ae245.appspot.com",
         messagingSenderId: "35487410422",
         appId: "1:35487410422:web:85c9cf69a15fef8ace64d7",
         measurementId: "G-30XKWPSEKH"
       };
 
+            try {
       // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
 
-      // Make auth and db available globally
-      window.auth = auth;
-      window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-      window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-      window.signOut = signOut;
-      window.onAuthStateChanged = onAuthStateChanged;
-      window.db = db;
-      window.doc = doc;
-      window.getDoc = getDoc;
-      window.setDoc = setDoc;
-      window.updateDoc = updateDoc;
-      window.arrayUnion = arrayUnion;
-      window.sendPasswordResetEmail = sendPasswordResetEmail;
+                // Initialize services and make them globally available
+                window.db = firebase.firestore();
+                window.auth = firebase.auth();
+                window.storage = firebase.storage();
+                window.analytics = firebase.analytics();
 
-      // AUTH STATE CHANGE (update UI)
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          document.querySelectorAll('.logged-in-nav').forEach(el => el.style.display = '');
-          document.querySelectorAll('.logged-out-nav').forEach(el => el.style.display = 'none');
-          document.getElementById('loggedInUsername').textContent = user.email;
-        } else {
-          document.querySelectorAll('.logged-in-nav').forEach(el => el.style.display = 'none');
-          document.querySelectorAll('.logged-out-nav').forEach(el => el.style.display = '');
+                // Enable offline persistence for Firestore
+                window.db.enablePersistence()
+                    .catch((err) => {
+                        if (err.code == 'failed-precondition') {
+                            console.warn('Multiple tabs open, persistence can only be enabled in one tab at a time.');
+                        } else if (err.code == 'unimplemented') {
+                            console.warn('The current browser does not support persistence.');
+                        }
+                    });
+
+                // Add network status listener
+                firebase.firestore().enableNetwork().catch(console.error);
+                window.addEventListener('online', () => {
+                    firebase.firestore().enableNetwork().catch(console.error);
+                });
+                window.addEventListener('offline', () => {
+                    firebase.firestore().disableNetwork().catch(console.error);
+                });
+
+                console.log('Firebase initialized successfully');
+
+                // Dispatch event when Firebase is ready
+                window.dispatchEvent(new Event('firebase-ready'));
+            } catch (error) {
+                console.error('Firebase initialization error:', error);
         }
       });
     </script>
-    <!-- Add EmailJS SDK -->
+
+    <!-- Other third-party libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="contact.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Initialize EmailJS -->
     <script>
         (function() {
-            // Initialize EmailJS with your public key
-            emailjs.init("7AH0UPvLvuzESU-fm"); // Your actual public key from EmailJS
+            emailjs.init("7AH0UPvLvuzESU-fm");
         })();
     </script>
+
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Load contact.js -->
+    <script src="contact.js"></script>
+
+    <!-- Load main script after everything else -->
     <script src="script.js"></script>
+
+    <!-- Add this CSS for navigation profile picture -->
+    <style>
+        .nav-profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 8px;
+            border: 2px solid #fff;
+        }
+
+        .user-info-trigger {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .user-info-trigger:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-arrow {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .user-menu-container.show .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+        .user-menu-container.show .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown-menu ul li {
+            padding: 0;
+        }
+
+        .dropdown-menu ul li a {
+            padding: 12px 20px;
+            display: block;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu ul li a:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+
+    <!-- Add this CSS for profile picture options -->
+    <style>
+        .profile-pic-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3498db;
+            background-color: #f8f9fa;
+        }
+
+        .profile-pic-options {
+            position: relative;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .change-pic-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .change-pic-btn:hover {
+            background: #2980b9;
+        }
+
+        .pic-option-buttons {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 10px;
+            margin-top: 10px;
+            z-index: 1000;
+            width: 200px;
+        }
+
+        .pic-option-btn {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: none;
+            background: #f8f9fa;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+
+        .pic-option-btn i {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .pic-option-btn:hover {
+            background: #e9ecef;
+        }
+
+        .camera-btn {
+            color: #2ecc71;
+        }
+
+        .gallery-btn {
+            color: #3498db;
+        }
+
+        .default-btn {
+            color: #95a5a6;
+        }
+
+        /* Loading spinner for image upload */
+        .loading-spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
 </body>
 </html>
